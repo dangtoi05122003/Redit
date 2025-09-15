@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip
-            pip install -r src\Crawler\Redit\requirements.txt
+            pip install -r src/Crawler/Redit/requirements.txt
 
       - name: Run
-        run: python src\Crawler\Redit\index.py
+        run: python src/Crawler/Redit/index.py
