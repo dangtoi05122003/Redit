@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from Database import MONGO_URI,MONGO_DB,MONGO_COLLECTION,client_id,client_secret
 import praw
 from datetime import datetime
+
 class Redit:
     def __init__(self):
         self.connect()
@@ -17,7 +18,10 @@ class Redit:
             client_secret= client_secret,
             user_agent = user_agent
         )
-
+    def insertData(self, data):
+        product = self.collection.find_one({"title": data["title"], "link": data["link"]})
+        if not product:
+            self.collection.insert_one(data)
     def group(self):
         subreddits = ["TroChuyenLinhTinh", "VietNamNation", "vozforums", "reviewnganhluat", "vietnamtoday"]
         self.subreddit_names = "+".join(subreddits)
@@ -46,17 +50,20 @@ class Redit:
             except:
                 pass
             data = {
-                    "date": date,
-                    "author": author,
-                    "subreddit": subreddit,
-                    "title": title,
-                    "content": content.strip() if content else None,
-                    "upvotes": upvotes,
-                    "comments": comments,
-                    "link": link,
-                    "image_link": img_link if img_link else None,
-                    "video_link": video_link if video_link else None
+                    'date': date,
+                    'author': author,
+                    'subreddit': subreddit,
+                    'title': title,
+                    'content': content.strip() if content else None,
+                    'upvotes': upvotes,
+                    'comments': comments,
+                    'link': link,
+                    'image_link': img_link if img_link else None,
+                    'video_link': video_link if video_link else None
             }
+            
+            #self.insertData(data)
+            
             print(f"title: {title}")
             print(f"author{author}")
             print(f"subreddit: {subreddit}")
@@ -69,17 +76,6 @@ class Redit:
             print(f"content: {content}")
             print('*'*100)
 
-
-
-
-
-            '''
-            self.collection.update_one(
-                {"link": link},
-                {"$set": data},
-                upsert=True
-            )
-            '''
 
 
 if __name__ =='__main__':
