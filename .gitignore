@@ -1,2 +1,3 @@
 __pycache__
-Crawler/VnExpress/Database.py
+src/Crawler/VnExpress/Database.py
+src/Crawler/Reddit/data.text
