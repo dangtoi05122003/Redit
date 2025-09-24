@@ -1,2 +1,0 @@
-Selenium== 4.27.1
-pymongo == 4.13.2
